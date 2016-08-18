@@ -53,7 +53,7 @@ class ConfigureCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $bundle = $this->getArgument('bundle');
+        $bundle = $input->getArgument('bundle');
         $bundle = $this->bundleResolver->resolve($bundle);
 
         if ($this->configurator->supports($bundle)) {

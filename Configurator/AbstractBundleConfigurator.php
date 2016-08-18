@@ -32,16 +32,16 @@ abstract class AbstractBundleConfigurator extends AbstractConfigurator
     /**
      * {@inheritdoc}
      */
-    public function configure(Bundle $bundle, SymfonyStyle $io)
+    final public function configure(Bundle $bundle, SymfonyStyle $io)
     {
         if (!$this->genericConfigurator->configure($bundle, $io)) {
             return;
         }
 
-        if (!$this->shouldBeConfigured($bundle, $io)) {
-            return;
-        }
+        $this->doConfigure($bundle, $io);
     }
+
+    abstract protected function doConfigure(Bundle $bundle, SymfonyStyle $io);
 
     abstract protected function getExtension(Bundle $bundle): ConfigurationExtensionInterface;
 

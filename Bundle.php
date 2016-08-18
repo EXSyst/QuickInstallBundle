@@ -14,11 +14,7 @@ namespace EXSyst\Bundle\QuickInstallBundle;
 final class Bundle
 {
     private $class;
-    private $path;
 
-    /**
-     * @internal do not instantiate this class.
-     */
     public function __construct(string $class)
     {
         $this->class = $class;
