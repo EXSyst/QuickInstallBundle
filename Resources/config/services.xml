@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="exsyst_quick_install.command.configure" class="EXSyst\Bundle\QuickInstallBundle\Command\ConfigureCommand">
+            <argument type="service">
+                <service class="EXSyst\Bundle\QuickInstallBundle\Util\BundleResolver">
+                    <argument type="service" id="kernel" />
+                </service>
+            </argument>
+            <argument type="service" id="exsyst_quick_install.configurator" />
+
+            <tag name="console.command" />
+        </service>
+
+        <service id="exsyst_quick_install.configurator" class="EXSyst\Bundle\QuickInstallBundle\Configurator\ChainConfigurator" public="false">
+            <argument type="collection">
+                <argument type="service" id="exsyst_quick_install.configurator.generic_bundle" />
+            </argument>
+        </service>
+
+        <service id="exsyst_quick_install.configurator.generic_bundle" class="EXSyst\Bundle\QuickInstallBundle\Configurator\GenericBundleConfigurator" public="false">
+            <argument type="service" id="exsyst_quick_install.kerner_manipulator" />
+        </service>
+
+        <service id="exsyst_quick_install.kerner_manipulator" class="EXSyst\Bundle\QuickInstallBundle\Util\KernelManipulator" public="false">
+            <argument type="service" id="kernel" />
+        </service>
+
+    </services>
+</container>
