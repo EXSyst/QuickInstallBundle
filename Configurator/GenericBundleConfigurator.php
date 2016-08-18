@@ -32,7 +32,7 @@ final class GenericBundleConfigurator implements ConfiguratorInterface
     public function configure(Bundle $bundle, SymfonyStyle $io): bool
     {
         if ($this->kernelManipulator->hasBundle($bundle)) {
-            $io->note(sprintf('The bundle "%s" is already registered in your kernel.', $bundle->getClass()));
+            $io->text(sprintf('The bundle <info>%s</info> is already registered in your kernel.', $bundle->getClass()));
 
             return true;
         }

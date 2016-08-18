@@ -29,7 +29,7 @@ final class DunglasActionConfigurator extends AbstractBundleConfigurator
             return;
         }
 
-        $appConfig = $this->getAppConfig($bundle, $io);
+        $appConfig = $this->getAppConfig($bundle);
         $defaultDirectories = $appConfig['directories'];
 
         $directories = [];
