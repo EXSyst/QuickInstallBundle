@@ -15,7 +15,7 @@ use EXSyst\Bundle\QuickInstallBundle\Bundle;
 use EXSyst\Bundle\QuickInstallBundle\Util\KernelManipulator;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-final class GenericBundleConfigurator extends AbstractConfigurator
+final class GenericBundleConfigurator implements ConfiguratorInterface
 {
     private $kernelManipulator;
 
@@ -37,7 +37,7 @@ final class GenericBundleConfigurator extends AbstractConfigurator
             return true;
         }
 
-        if (!$this->askConfirmation($io, sprintf('Add the bundle "%s" to your kernel?', $bundle->getClass()))) {
+        if (!$io->confirm(sprintf('Add the bundle "%s" to your kernel?', $bundle->getClass()))) {
             return false;
         }
 

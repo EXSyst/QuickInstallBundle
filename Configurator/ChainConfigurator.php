@@ -14,7 +14,7 @@ namespace EXSyst\Bundle\QuickInstallBundle\Configurator;
 use EXSyst\Bundle\QuickInstallBundle\Bundle;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-final class ChainConfigurator extends AbstractConfigurator
+final class ChainConfigurator implements ConfiguratorInterface
 {
     private $configurators;
 

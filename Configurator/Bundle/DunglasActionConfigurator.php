@@ -15,10 +15,8 @@ use Dunglas\ActionBundle\DunglasActionBundle;
 use Dunglas\ActionBundle\DependencyInjection\DunglasActionExtension;
 use EXSyst\Bundle\QuickInstallBundle\Bundle;
 use EXSyst\Bundle\QuickInstallBundle\Configurator\AbstractBundleConfigurator;
-use EXSyst\Bundle\QuickInstallBundle\Util\Config\ConfigResolver;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * @internal
@@ -27,7 +25,7 @@ final class DunglasActionConfigurator extends AbstractBundleConfigurator
 {
     protected function doConfigure(Bundle $bundle, SymfonyStyle $io)
     {
-        if (!$this->askConfirmation($io, 'Configure automatically registered directories?', false)) {
+        if (!$io->confirm('Configure automatically registered directories?', false)) {
             return;
         }
 
@@ -36,15 +34,16 @@ final class DunglasActionConfigurator extends AbstractBundleConfigurator
 
         $directories = [];
         while (true) {
+            $default = 'stop';
             if (count($defaultDirectories)) {
                 $default = array_shift($defaultDirectories);
             }
 
-            $directory = $this->ask($io, 'Register a new directory?', $default);
-            if (null !== $directory && 'none' !== $directory) {
+            $directory = $io->ask('Register a new directory?', $default);
+            if (null !== $directory && 'stop' !== $directory) {
                 $directories[] = $directory;
             } else {
-                if (null === $default) {
+                if ('stop' === $default) {
                     break;
                 }
             }
@@ -57,7 +56,6 @@ final class DunglasActionConfigurator extends AbstractBundleConfigurator
         }
 
         $this->saveConfig($config, $bundle, $io);
-
     }
 
     public function supports(Bundle $bundle): bool
