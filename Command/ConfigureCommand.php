@@ -57,7 +57,7 @@ class ConfigureCommand extends Command
         $bundle = $this->bundleResolver->resolve($bundle);
 
         if ($this->configurator->supports($bundle)) {
-            $this->configurator->configure($bundle);
+            $this->configurator->configure($bundle, $io);
         } else {
             $io->error(sprintf('No configurator found for "%s"', $bundle->getClass()));
         }

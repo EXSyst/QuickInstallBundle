@@ -27,7 +27,7 @@ final class DunglasActionConfigurator extends AbstractBundleConfigurator
 {
     protected function doConfigure(Bundle $bundle, SymfonyStyle $io)
     {
-        if (!$this->askConfirmation('Configure automatically registered directories?', false)) {
+        if (!$this->askConfirmation($io, 'Configure automatically registered directories?', false)) {
             return;
         }
 
@@ -40,7 +40,7 @@ final class DunglasActionConfigurator extends AbstractBundleConfigurator
                 $default = array_shift($defaultDirectories);
             }
 
-            $directory = $io->ask('Register a new directory?', $default);
+            $directory = $this->ask($io, 'Register a new directory?', $default);
             if (null !== $directory && 'none' !== $directory) {
                 $directories[] = $directory;
             } else {

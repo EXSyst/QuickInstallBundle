@@ -19,13 +19,21 @@
 
         <service id="exsyst_quick_install.configurator" class="EXSyst\Bundle\QuickInstallBundle\Configurator\ChainConfigurator" public="false">
             <argument type="collection">
-                <argument type="service" id="exsyst_quick_install.configurator.generic_bundle" />
+                <argument type="service" id="exsyst_quick_install.configurator.bundle.dunglas_action" />
+                <argument type="service" id="exsyst_quick_install.configurator.bundle.generic" />
             </argument>
         </service>
 
-        <service id="exsyst_quick_install.configurator.generic_bundle" class="EXSyst\Bundle\QuickInstallBundle\Configurator\GenericBundleConfigurator" public="false">
+        <service id="exsyst_quick_install.configurator.bundle.generic" class="EXSyst\Bundle\QuickInstallBundle\Configurator\GenericBundleConfigurator" public="false">
             <argument type="service" id="exsyst_quick_install.kerner_manipulator" />
         </service>
+
+        <service id="exsyst_quick_install.configurator.bundle" public="false" abstract="true">
+            <argument type="service" id="kernel" />
+            <argument type="service" id="exsyst_quick_install.configurator.bundle.generic" />
+        </service>
+
+        <service id="exsyst_quick_install.configurator.bundle.dunglas_action" class="EXSyst\Bundle\QuickInstallBundle\Configurator\Bundle\DunglasActionConfigurator" parent="exsyst_quick_install.configurator.bundle" />
 
         <service id="exsyst_quick_install.kerner_manipulator" class="EXSyst\Bundle\QuickInstallBundle\Util\KernelManipulator" public="false">
             <argument type="service" id="kernel" />
